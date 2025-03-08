@@ -11,6 +11,6 @@ terraform validate
 echo "Running tflint ..."
 tflint
 
-echo "All Terraform checks passed."
+echo "All Terraform checks passed successfully."
 
 cd ..
