@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 # Run Terraform static tests
 cd infrastructure
@@ -14,3 +15,36 @@ tflint
 echo "All Terraform checks passed successfully."
 
 cd ..
+=======
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running Terraform pre-commit checks..."
+
+# Check Terraform formatting
+terraform fmt -check -recursive
+if [ $? -ne 0 ]; then
+  echo "❌ Terraform formatting issues detected. Run 'terraform fmt' to fix them."
+  exit 1
+fi
+
+# Validate Terraform syntax
+terraform validate
+if [ $? -ne 0 ]; then
+  echo "❌ Terraform validation failed. Fix syntax errors before committing."
+  exit 1
+fi
+
+# Run Terraform linting (if tflint is installed)
+if command -v tflint &> /dev/null; then
+  tflint
+  if [ $? -ne 0 ]; then
+    echo "❌ Terraform linting failed. Fix issues before committing."
+    exit 1
+  fi
+else
+  echo "⚠️ tflint not found. Skipping linting step."
+fi
+
+echo "✅ All Terraform checks passed!"
+>>>>>>> Stashed changes
