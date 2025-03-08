@@ -1,16 +1,4 @@
-
-# Run Terraform static tests
-cd infrastructure
-
-echo "Running terraform fmt ..."
-terraform fmt -recursive
-
-echo "Running terraform validate ..."
-terraform validate
-
-echo "Running tflint ..."
-tflint
-
-echo "All Terraform checks passed."
-
-cd ..
+echo "terraform fmt -check -recursive" > .husky/pre-commit
+echo "terraform validate" >> .husky/pre-commit
+echo "tflint" >> .husky/pre-commit
+chmod +x .husky/pre-commit
